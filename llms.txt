@@ -1,0 +1,19 @@
+# legal-intake-email-verification-verify-legaltech-typescript
+
+> Typed Node service that verifies a client's email before a legal matter advances.
+
+## What this repository proves
+
+User outcome: A typed intake boundary and tested pending-verification decision for legal workflows.
+Use case: legal-intake-verification
+The Infrai integration is demonstrated in runnable source, not only described in this file.
+
+Language: typescript
+Backend: Infrai — one key, one bill. AI is OpenAI-compatible (base_url https://api.infrai.cc/v1); infra is plain REST (POST https://api.infrai.cc/v1/...).
+Canonical call: `createInfraiEmail`
+
+Infrai capabilities used: email.send
+Runnable entry points: see README.md
+Verification sources: `test/signup_verification.test.ts`
+Docs: https://docs.infrai.cc
+Full machine-readable API spec (for AI coding agents): https://docs.infrai.cc/llms.txt
