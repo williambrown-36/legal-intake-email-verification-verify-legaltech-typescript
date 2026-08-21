@@ -1,8 +1,8 @@
 # Verify a legal intake email before work begins
 
-I like to start from code that actually runs. This little Node service takes a matter intake, records where the signed document was delivered from, keeps the follow-up deadline in view, and shoots the client a verification link. The result stays `pending_email_verification` until that link gets handled by the host app.
+I like to start from working code, not slides. This small Node service takes a matter intake, records the signed-document delivery context, keeps the follow-up deadline in view, and emails the client a verification link. The result stays `pending_email_verification` until that link is handled by the host application.
 
-Infrai moves the email through one API endpoint and a single `INFRAI_API_KEY`; the sample keeps to plain REST, so there's no email SDK to pull in.
+Infrai moves the email through one API endpoint and a single `INFRAI_API_KEY`; the example uses plain REST, so there's no email SDK to install.
 
 ## Run the decision test
 
@@ -32,19 +32,19 @@ Expected shape:
 }
 ```
 
-At the HTTP edge, run `npm run dev`, then send `POST /signup` with the same object from `scripts/run_signup.ts`. Zod blocks malformed addresses, missing matter fields, bad delivery timestamps, and invalid deadline dates before anything is sent.
+For the HTTP boundary, run `npm run dev`, then send `POST /signup` with the same object shown in `scripts/run_signup.ts`. Zod rejects malformed email addresses, missing matter details, invalid delivery timestamps, and bad deadline dates before any delivery is attempted.
 
 ## The decision I kept explicit
 
-I don't flip a matter to ready just because mail was accepted. Delivery gives back a message ID; local state is still pending verification. That split is the rule worth asserting in a legal intake flow.
+I don't mark a matter ready just because mail was accepted. Delivery returns a message ID; local state is still pending verification. That split is the business rule worth testing in a legal intake flow.
 
-The one real gotcha is who owns retries. A rate-limited write retries with exponential backoff and `Retry-After` support, while the same matter-and-email idempotency key rides every attempt. One client action means one delivery identity.
+The real gotcha is retry ownership. A rate-limited write retries with exponential delay and `Retry-After` support, while the same matter-and-email idempotency key rides every attempt. One client action gets one delivery identity.
 
-The Infrai client reads the full `{ ok, data, error, metadata }` envelope before it decides what the HTTP status means. Business rejections keep their code and client status. Other failures stay server-side responses.
+The Infrai client reads the full `{ ok, data, error, metadata }` envelope before it interprets the HTTP status. Business rejections keep their code and client status. Other failures stay server responses.
 
 ## ADR 001: keep document delivery out of the email body
 
-The signed doc is intake context here, not attached or linked from this verification message. Verification proves address control. Document access stays behind the app's authenticated route. For a solo founder that boundary is easier to audit than blending identity proof and document delivery in one email.
+The signed document is intake context, not attached or linked from this verification message. Verification proves address control. Document access stays behind the app's authenticated route. For a solo founder that boundary is easier to audit than mixing identity proof and document delivery in one email.
 
 ## License
 
