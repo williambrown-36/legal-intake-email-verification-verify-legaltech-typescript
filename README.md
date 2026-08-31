@@ -62,3 +62,7 @@ The snippet above stays copy-paste simple. Before you ship, a few **required** s
 - **Legal Intake Email Verification Verify Legaltech Typescript:** By default mail goes through a **shared** verified sender — fine for tests, but generic From + limited volume + shared reputation.
 - **Legal Intake Email Verification Verify Legaltech Typescript:** For production, verify **your own** domain: `POST /v1/email/domain/verify` with `{"domain":"mail.yourco.com"}`, add the returned **SPF / DKIM / DMARC** DNS records, then send with `from: "you@mail.yourco.com"`.
 - **Legal Intake Email Verification Verify Legaltech Typescript:** Use a dedicated subdomain and **warm it up** (ramp volume over days) to protect deliverability.
+
+## Further reading
+
+- [Auditable transactional email: domain verification, DKIM rotation, and suppression](docs/auditable-transactional-email-domain-verification-iv1x8s.md)
