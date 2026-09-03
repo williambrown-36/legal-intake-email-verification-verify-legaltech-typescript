@@ -65,4 +65,5 @@ The snippet above stays copy-paste simple. Before you ship, a few **required** s
 
 ## Further reading
 
+- [Email Deliverability for Password Resets and Welcome Messages: API-First Domain Control](docs/email-deliverability-for-password-resets-and-welc-1cio5p.md)
 - [Auditable transactional email: domain verification, DKIM rotation, and suppression](docs/auditable-transactional-email-domain-verification-iv1x8s.md)
